@@ -6,10 +6,10 @@ function init()
    H=canvas.height=600;
    pen=canvas.getContext('2d');
    game_over=false;
-   cs=66;
+   cs=46;
    snake={
       init_len: 5,
-      color: "blue",
+      color: "purple",
       cells: [],
       direction: "right",
 
@@ -22,8 +22,22 @@ function init()
 
       drawsnake:function()
       {
-         for(var i=0;i<this.cells.length;i++)
+      	 //Evertime erase the previous frame to draw the new frame
+      	 pen.clearRect(0,0,W,H);
+         for(var i=0;i<this.cells.length;i++){
+         	pen.fillStyle=this.color;
          	pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs-2,cs-2);
+       }
+      },
+
+      updatesnake:function()
+      {
+          this.cells.pop();
+          var headx=this.cells[0].x;
+          var heady=this.cells[0].y;
+          var X=headx+1;
+          var Y=heady;
+          this.cells.unshift({x:X,y:Y});
       }
    };
    snake.createsnake();
@@ -35,7 +49,7 @@ function draw()
 }
 function update()
 { 
-
+    snake.updatesnake();
 }
 function gameloop()
 {
