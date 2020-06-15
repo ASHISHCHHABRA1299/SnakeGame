@@ -7,7 +7,7 @@ function init()
    pen=canvas.getContext('2d');
    game_over=false;
    cs=46;
-   score=5;
+   score=0;
    
    //Create a Image Object for food
  	food_img = new Image();
@@ -51,7 +51,9 @@ function init()
             if(headX==food.x&&headY==food.y)
             {
                 console.log("food eaten");
+                score++;
                 food=getrandomfood();
+
             }else {
             this.cells.pop();
             }
@@ -109,8 +111,12 @@ function draw()
 	snake.drawsnake();
     //draw food
     pen.fillStyle="red";
-    pen.fillRect(food.x*cs,food.y*cs,cs,cs);	
-
+    pen.drawImage(food_img,food.x*cs,food.y*cs,cs,cs);	
+    
+    //score text style
+    pen.fillStyle = "blue";
+	pen.font = "20px Roboto"
+	pen.fillText(score,50,50);
 }
 function update()
 { 
@@ -133,7 +139,14 @@ function gameloop()
 	if(game_over==true)
 	{
 		clearInterval(f);
-	 	alert("Game Over :(");
+	 	var txt;
+	 	var person = prompt("Please enter your name:", "Harry Potter");
+	 	if (person == null || person == "") {
+    		txt = "User";
+  		} else {
+   			txt = person;
+  		}
+  		alert(txt + " Total Score: "+score);
 	 	return;
 	 }
 	draw();
