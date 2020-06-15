@@ -113,6 +113,8 @@ function draw()
     pen.fillStyle="red";
     pen.drawImage(food_img,food.x*cs,food.y*cs,cs,cs);	
     
+    //trophy image 
+    pen.drawImage(trophy,32,28,cs,cs);
     //score text style
     pen.fillStyle = "blue";
 	pen.font = "20px Roboto"
